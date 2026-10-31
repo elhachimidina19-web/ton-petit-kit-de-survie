@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ton petit kit de survie ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
+:root {
+  --rose:#d99aaa;
+  --pale:#f8e9ec;
+  --cream:#fffaf7;
+  --ink:#51434a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+}
+.page{
+  min-height:100vh;padding:30px 20px 55px;
+  background:radial-gradient(circle at top,#f9e8ec 0%,#fffaf7 48%);
+}
+main{max-width:650px;margin:auto}
+h1,h2{font-family:'Playfair Display',serif;font-weight:500}
+h1{font-size:36px;text-align:center;margin:12px 0}
+h2{font-size:27px}
+p{line-height:1.75}
+.subtitle{text-align:center;color:#927b83;font-size:14px}
+.heart{text-align:center;color:var(--rose);font-size:25px;margin:15px}
+.panel{
+  background:#fff;border:1px solid #f0dce1;border-radius:22px;
+  padding:25px;margin:22px 0;box-shadow:0 10px 30px #80505b12;
+}
+button{
+  border:0;background:var(--rose);color:white;padding:14px 24px;
+  border-radius:30px;font:600 15px 'DM Sans';cursor:pointer;
+}
+button:active{transform:scale(.98)}
+.center{text-align:center}
+.hidden{display:none!important}
+.envelope-area{
+  height:270px;display:flex;align-items:center;justify-content:center;
+  touch-action:none;position:relative;margin:15px 0;
+}
+.envelope{
+  width:260px;height:155px;background:#e8b9c4;position:relative;
+  border-radius:5px;box-shadow:0 12px 25px #80505b25;
+  cursor:grab;touch-action:none;
+}
+.envelope:before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(145deg,transparent 49%,#d99aaa 50%) left,
+             linear-gradient(215deg,transparent 49%,#d99aaa 50%) right;
+  background-size:50% 100%;background-repeat:no-repeat;
+}
+.flap{
+  position:absolute;top:0;left:0;width:0;height:0;
+  border-left:130px solid transparent;border-right:130px solid transparent;
+  border-top:95px solid #d99aaa;transform-origin:top;z-index:3;
+  transition:transform .5s;
+}
+.envelope.open .flap{transform:rotateX(180deg)}
+.seal{
+  position:absolute;z-index:4;left:calc(50% - 19px);top:75px;
+  width:38px;height:38px;background:#fff4f5;border-radius:50%;
+  display:grid;place-items:center;color:#c77e91;font-size:20px;
+}
+.letter{
+  background:#fffdfb;border:1px solid #f0dce1;border-radius:8px;
+  padding:27px 23px;box-shadow:0 8px 25px #80505b12;
+}
+.letter p{font-family:'Playfair Display',serif;font-size:17px}
+.section-title{text-align:center;margin:35px 0 8px}
+.category{border-radius:20px;padding:20px;margin:18px 0;background:#fff}
+.category h3{font-family:'Playfair Display',serif;font-size:21px;margin:0 0 14px}
+.category label{
+  display:flex;gap:12px;align-items:flex-start;padding:12px 0;
+  border-bottom:1px solid #f3e9eb;line-height:1.5;font-size:14px;
+}
+.category label:last-child{border:0}
+input[type=checkbox]{accent-color:#c77e91;width:19px;height:19px;flex-shrink:0;margin-top:1px}
+.pink{border-left:5px solid #e6a9b8}
+.green{border-left:5px solid #a9c8aa}
+.yellow{border-left:5px solid #e8d28a}
+.rose{border-left:5px solid #d99aaa}
+.note{text-align:center;color:#927b83;font-size:13px}
+footer{text-align:center;color:#b18e98;font-size:13px;margin-top:35px}
+</style>
+</head>
+<body>
+<div class="page">
+<main>
+
+<section id="welcome">
+  <div class="heart">♡</div>
+  <h1>Ton petit kit de survie</h1>
+  <p class="subtitle">Un petit endroit rempli de nous, pour toi, Elea.</p>
+  <div class="panel center">
+    <h2>Une petite lettre t'attend…</h2>
+    <p>Fais glisser l'enveloppe vers le haut pour découvrir ton message.</p>
+    <div class="envelope-area" id="envelopeArea">
+      <div class="envelope" id="envelope">
+        <div class="flap"></div><div class="seal">♥</div>
+      </div>
+    </div>
+    <button id="openButton">Ouvrir ma lettre ♡</button>
+  </div>
+</section>
+
+<section id="letterSection" class="hidden">
+  <div class="letter">
+    <div class="heart">♡</div>
+    <h2 class="center">Joyeux anniversaire mon cœur</h2>
+    <p>Joyeux anniversaire mon cœur. ❤️ Aujourd’hui, on célèbre une année de plus pour toi, mais aussi nos 3 mois à nous, et je ne pouvais pas rêver d’une plus belle personne avec qui partager ces moments. Je t’aime de tout mon cœur, bien plus que les mots ne sauront jamais l’expliquer. Et quand je pense à mon avenir, peu importe ce qu’il me réserve, il y a une personne que j’y vois naturellement, et c’est toi. J’ai envie de continuer à grandir à tes côtés, de créer encore des milliers de souvenirs avec toi et de découvrir tout ce que la vie nous réserve. Je t’aime Elea. ❤️</p>
+    <p class="center">Avec tout mon amour ♡</p>
+  </div>
+  <div class="center" style="margin:25px">
+    <button id="continueButton">Continuer ❤️</button>
+  </div>
+</section>
+
+<section id="memories" class="hidden">
+  <div class="heart">♡</div>
+  <h1>Nos petits souvenirs</h1>
+  <p class="subtitle">Parce que chaque moment avec toi mérite d'être gardé.</p>
+  <div class="panel center">
+    <h2>Une vidéo rien que pour toi</h2>
+    <p>J'ai rassemblé quelques souvenirs et quelques mots pour toi…</p>
+    <button id="videoButton">Clique ici ❤️</button>
+    <p id="videoNotice" class="note hidden">Notre vidéo sera ajoutée ici lors de la prochaine étape. ❤️</p>
+  </div>
+
+  <h2 class="section-title">Ton petit kit de survie</h2>
+  <p class="subtitle">Ouvre une catégorie quand tu en as besoin. Tu peux cocher les petits mots qui te parlent.</p>
+
+  <div class="category pink">
+    <h3>❤️ Quand tu as besoin d'amour</h3>
+    <label><input type="checkbox"><span>C’est peut-être simple mais tu le sais je t’aime.</span></label>
+    <label><input type="checkbox"><span>Si je pouvais être près de toi à chaque instant où tu en as besoin, je le serais sans hésiter.</span></label>
+    <label><input type="checkbox"><span>N'oublie jamais que tu n'as pas besoin d'être au meilleur de ta forme pour mériter tout l'amour que j'ai pour toi.</span></label>
+    <label><input type="checkbox"><span>Même lorsque tu ne vois pas ce que tu as de merveilleux, moi je le vois, et je continuerai de te le rappeler.</span></label>
+  </div>
+
+  <div class="category rose">
+    <h3>🩷 Quand je te manque</h3>
+    <label><input type="checkbox"><span>Tu sais que tu me manques aussi hein, tu me manques tout le temps.</span></label>
+    <label><input type="checkbox"><span>Peu importe la distance actuelle entre nous, tu restes toujours dans ma tête et dans mon cœur.</span></label>
+    <label><input type="checkbox"><span>Au pire touche-toi et ce sera comme si j’étais là 😁</span></label>
+    <label><input type="checkbox"><span>Je te fais un gros câlin et plein de bisous à distance !</span></label>
+    <label><input type="checkbox"><span>Regarde autour de toi, je serai bientôt là avec toi pour rattraper le temps qu’on perd quand on n’est pas ensemble.</span></label>
+  </div>
+
+  <div class="category green">
+    <h3>💚 Un bon, sans discussion</h3>
+    <label><input type="checkbox"><span>Un massage.</span></label>
+    <label><input type="checkbox"><span>Câlin de 30 min sans bouger.</span></label>
+    <label><input type="checkbox"><span>Un moment cocooning (soirée pyjama).</span></label>
+    <label><input type="checkbox"><span>24 h où on fait ce que tu veux (yes day).</span></label>
+    <label><input type="checkbox"><span>Un restaurant (soirée romantique).</span></label>
+  </div>
+
+  <div class="category yellow">
+    <h3>💛 Un compliment, ça fait pas de mal</h3>
+    <label><input type="checkbox"><span>Tu le sais déjà mais t’es magnifique.</span></label>
+    <label><input type="checkbox"><span>J’aime tes yeux, ils brillent comme les étoiles.</span></label>
+    <label><input type="checkbox"><span>T’as un sourire qui pourrait faire sourire le monde entier.</span></label>
+    <label><input type="checkbox"><span>T’es un soleil et tu le reflètes dans ton entourage.</span></label>
+    <label><input type="checkbox"><span>T’es comme un nuage, toute douce et hyper confortable.</span></label>
+  </div>
+  <p class="note">Un petit bout de moi à garder près de toi. ❤️</p>
+</section>
+
+<footer>Fait avec beaucoup d'amour ♡</footer>
+</main>
+</div>
+<script>
+const envelope=document.getElementById('envelope');
+const area=document.getElementById('envelopeArea');
+let startY=null, opened=false;
+function openLetter(){
+  if(opened)return;
+  opened=true;
+  envelope.classList.add('open');
+  setTimeout(()=>{
+    document.getElementById('welcome').classList.add('hidden');
+    document.getElementById('letterSection').classList.remove('hidden');
+    window.scrollTo(0,0);
+  },450);
+}
+area.addEventListener('pointerdown',e=>{startY=e.clientY;});
+area.addEventListener('pointerup',e=>{
+  if(startY!==null && startY-e.clientY>25)openLetter();
+  startY=null;
+});
+document.getElementById('openButton').addEventListener('click',openLetter);
+document.getElementById('continueButton').addEventListener('click',()=>{
+  document.getElementById('letterSection').classList.add('hidden');
+  document.getElementById('memories').classList.remove('hidden');
+  window.scrollTo(0,0);
+});
+document.getElementById('videoButton').addEventListener('click',()=>{
+  document.getElementById('videoNotice').classList.remove('hidden');
+});
+</script>
+</body>
+</html>
