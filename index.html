@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -98,7 +99,14 @@ footer{text-align:center;color:#b18e98;font-size:13px;margin-top:35px}
 </style>
 </head>
 <body>
-<div class="page">
+<div id="loginBox" style="max-width:400px;margin:50px auto;padding:25px;background:white;border-radius:18px;text-align:center;">
+  <h2>Bienvenue ❤️</h2>
+  <p>Connecte-toi pour accéder à ton petit univers.</p>
+  <input id="email" type="email" placeholder="Adresse e-mail" style="width:100%;padding:12px;margin:8px 0;">
+  <input id="password" type="password" placeholder="Mot de passe" style="width:100%;padding:12px;margin:8px 0;">
+  <button id="loginButton">Se connecter</button>
+  <p id="loginMessage"></p>
+</div><div class="page">
 <main>
 
 <section id="welcome">
@@ -208,9 +216,6 @@ document.getElementById('continueButton').addEventListener('click',()=>{
   document.getElementById('memories').classList.remove('hidden');
   window.scrollTo(0,0);
 });
-document.getElementById('videoButton').addEventListener('click',()=>{
-  document.getElementById('videoNotice').classList.remove('hidden');
-});
   document.querySelectorAll('.category label').forEach(label=>{
   label.addEventListener('click',e=>{
     if(!label.classList.contains('revealed')){
@@ -218,6 +223,86 @@ document.getElementById('videoButton').addEventListener('click',()=>{
       label.classList.add('revealed');
     }
   });
+});
+const SUPABASE_URL = 'https://qofeuuhiumzosiqrgvaf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable__T0FTVKxtP0sCWOIqxwkJA_7FD4vn_Z';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const dinaId = 'e8148849-0694-43a3-9d59-eb23c3204202';
+const eleaId = 'e66be10a-fd34-44da-b7b9-69ef67b94482';
+
+const loginBox = document.getElementById('loginBox');
+const page = document.querySelector('.page');
+
+page.style.display = 'none';
+
+function afficherSite() {
+  loginBox.style.display = 'none';
+  page.style.display = 'block';
+}
+
+async function verifierConnexion() {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+
+  if (session && [dinaId, eleaId].includes(session.user.id)) {
+    afficherSite();
+  }
+}
+
+verifierConnexion();
+
+document.getElementById('loginButton').addEventListener('click', async () => {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const message = document.getElementById('loginMessage');
+
+  message.textContent = 'Connexion en cours...';
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    message.textContent = 'Erreur : vérifie ton e-mail et ton mot de passe.';
+    return;
+  }
+
+  if (![dinaId, eleaId].includes(data.user.id)) {
+    await supabaseClient.auth.signOut();
+    message.textContent = 'Ce compte n’est pas autorisé.';
+    return;
+  }
+
+  afficherSite();
+});
+
+document.getElementById('videoButton').addEventListener('click', async () => {
+  const notice = document.getElementById('videoNotice');
+  notice.classList.remove('hidden');
+  notice.textContent = 'Chargement de votre vidéo...';
+
+  const { data, error } = await supabaseClient.storage
+    .from('elea-souvenirs')
+    .createSignedUrl(
+      'copy_B3967221-34E7-4BEB-9F3C-62DE48F1AD01-compressed.MOV',
+      3600
+    );
+
+  if (error) {
+    notice.textContent = 'Impossible de charger la vidéo. Réessaie.';
+    return;
+  }
+
+  notice.innerHTML = `
+    <video controls playsinline style="width:100%;border-radius:15px;">
+      <source src="${data.signedUrl}" type="video/quicktime">
+    </video>
+  `;
 });
 </script>
 </body>
