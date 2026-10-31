@@ -105,6 +105,9 @@ footer{text-align:center;color:#b18e98;font-size:13px;margin-top:35px}
   <input id="email" type="email" placeholder="Adresse e-mail" style="width:100%;padding:12px;margin:8px 0;">
   <input id="password" type="password" placeholder="Mot de passe" style="width:100%;padding:12px;margin:8px 0;">
   <button id="loginButton">Se connecter</button>
+  <button id="forgotPasswordButton" type="button">
+  Mot de passe oublié ?
+</button>
   <p id="loginMessage"></p>
 </div><div class="page">
 <main>
@@ -244,7 +247,45 @@ function afficherSite() {
   loginBox.style.display = 'none';
   page.style.display = 'block';
 }
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  if (event === 'PASSWORD_RECOVERY') {
+    setTimeout(async () => {
+      const nouveauMotDePasse = prompt('Choisis ton nouveau mot de passe :');
 
+      if (!nouveauMotDePasse || nouveauMotDePasse.length < 8) {
+        alert('Le mot de passe doit contenir au moins 8 caractères.');
+        return;
+      }
+
+      const { error } = await supabaseClient.auth.updateUser({
+        password: nouveauMotDePasse
+      });
+
+      if (error) {
+        alert('Erreur : ' + error.message);
+      } else {
+        alert('Ton mot de passe a été modifié ! ❤️');
+      }
+    }, 500);
+  }
+});
+  document.getElementById('forgotPasswordButton').addEventListener('click', async () => {
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('loginMessage');
+
+  if (!email) {
+    message.textContent = 'Entre d’abord ton adresse e-mail.';
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://elhachimidina19-web.github.io/ton-petit-kit-de-survie/'
+  });
+
+  message.textContent = error
+    ? 'Erreur : ' + error.message
+    : 'Un lien de réinitialisation vient de t’être envoyé ! ❤️';
+});
 async function verifierConnexion() {
   const { data: { session } } = await supabaseClient.auth.getSession();
 
