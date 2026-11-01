@@ -240,7 +240,22 @@ const eleaId = 'e66be10a-fd34-44da-b7b9-69ef67b94482';
 
 const loginBox = document.getElementById('loginBox');
 const page = document.querySelector('.page');
+const logoutButton = document.createElement('button');
+logoutButton.textContent = 'Se déconnecter';
+logoutButton.style.margin = '15px';
 
+logoutButton.addEventListener('click', async () => {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert('Erreur lors de la déconnexion.');
+    return;
+  }
+
+  window.location.reload();
+});
+
+page.prepend(logoutButton);
 page.style.display = 'none';
 
 function afficherSite() {
